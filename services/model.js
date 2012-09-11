@@ -5,12 +5,15 @@ var splice = Array.prototype.splice;
 
 angular.module('$bone.services')
 
-.factory('$model', ['$injector', '$resource', '$events', function($injector, $resource, $events) {
+.factory('$model', ['$injector', '$events', function($injector, $events) {
 
 	var ModelFactory = function(attributes, options) {
 
 		function Model(attributes, options) {
-			var resource = $injector.get(options.resource)(options.resourceOptions);
+			var defaults;
+			attributes || (attributes = {});
+
+			var resource = attributes.resource;
 
 			var query = resource.query;
 			resource.query = function() {
